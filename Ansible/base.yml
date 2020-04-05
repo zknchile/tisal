@@ -1,0 +1,44 @@
+---
+- name: Install Base
+  gather_facts: false
+  hosts: all
+  user: opc
+  become: yes
+
+  tasks:
+    - name: yum update
+      yum:
+        name: '*'
+        state: latest
+
+    - name: firewalld is disabled
+      systemd: 
+         name: firewalld 
+         enabled: no
+    
+    - name: firewalld is stopped
+      systemd: 
+         name: firewalld 
+         state: stopped
+    
+    - name: copy yum-cron base conf file
+        copy:
+           src: yum-cron.conf 
+           dest: /etc/yum/yum-cron.conf
+
+    - name: Ensures yum-cron installed
+      yum: 
+          name: yum-cron 
+          state: lates
+          
+    - name: Start yun-cron service
+      service:
+        name: yum-cron
+        state: started
+        enabled: yes
+      become: yes
+    
+
+
+
+    

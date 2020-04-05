@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+   haproxy:
+      build: ./haproxy
+      container_name: haproxy
+      ports:
+         - "9005-9010:9005-9010"
+   httpd:
+      build: ./httpd
+      container_name: httpd
+      ports:
+         - 80:80
