@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+   mysql:
+      build: ./mysql
+      container_name: mysql
+      volumes:
+        - mysql:/var/lib/mysql
+      ports:
+         - "3306:3306"
+      environment:
+         MYSQL_ROOT_PASSWORD: tisallabs
+   httpd:
+      build: ./httpd
+      container_name: httpd
+      ports:
+         - 80:80
+volumes:
+    mysql:
